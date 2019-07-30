@@ -525,23 +525,7 @@ class LSTMLRCell(RNNCell):
                     math_ops.matmul(inputs, self.W), self.W3)
                 wComp4 = math_ops.matmul(
                     math_ops.matmul(inputs, self.W), self.W4)
-            if self._uRank is None:
-                U1_matrix_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U1 = vs.get_variable(
-                    "U1", [self._hidden_size, self._hidden_size],
-                    initializer=U1_matrix_init)
-                U2_matrix_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U2 = vs.get_variable(
-                    "U2", [self._hidden_size, self._hidden_size],
-                    initializer=U2_matrix_init)
-                U3_matrix_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U3 = vs.get_variable(
-                    "U3", [self._hidden_size, self._hidden_size],
-                    initializer=U3_matrix_init)
-                U4_matrix_init = init_ops.random_normal_initializer(
+ itializer(
                     mean=0.0, stddev=0.1, dtype=tf.float32)
                 self.U4 = vs.get_variable(
                     "U4", [self._hidden_size, self._hidden_size],
@@ -550,41 +534,6 @@ class LSTMLRCell(RNNCell):
                 uComp2 = math_ops.matmul(h, self.U2)
                 uComp3 = math_ops.matmul(h, self.U3)
                 uComp4 = math_ops.matmul(h, self.U4)
-            else:
-                U_matrix_r_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U = vs.get_variable(
-                    "U", [self._hidden_size, self._uRank],
-                    initializer=U_matrix_r_init)
-                U1_matrix_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U1 = vs.get_variable(
-                    "U1", [self._uRank, self._hidden_size],
-                    initializer=U1_matrix_init)
-                U2_matrix_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U2 = vs.get_variable(
-                    "U2", [self._uRank, self._hidden_size],
-                    initializer=U2_matrix_init)
-                U3_matrix_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U3 = vs.get_variable(
-                    "U3", [self._uRank, self._hidden_size],
-                    initializer=U3_matrix_init)
-                U4_matrix_init = init_ops.random_normal_initializer(
-                    mean=0.0, stddev=0.1, dtype=tf.float32)
-                self.U4 = vs.get_variable(
-                    "U4", [self._uRank, self._hidden_size],
-                    initializer=U4_matrix_init)
-
-                uComp1 = math_ops.matmul(
-                    math_ops.matmul(h, self.U), self.U1)
-                uComp2 = math_ops.matmul(
-                    math_ops.matmul(h, self.U), self.U2)
-                uComp3 = math_ops.matmul(
-                    math_ops.matmul(h, self.U), self.U3)
-                uComp4 = math_ops.matmul(
-                    math_ops.matmul(h, self.U), self.U4)
 
             pre_comp1 = wComp1 + uComp1
             pre_comp2 = wComp2 + uComp2
